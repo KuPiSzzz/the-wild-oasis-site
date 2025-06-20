@@ -6,7 +6,15 @@ export const authOptions = {
       clientId: process.env.AUTH_GOOGLE_ID,
       clientSecret: process.env.AUTH_GOOGLE_SECRET
     })
-  ]
+  ],
+  callbacks: {
+    authorized({ auth, request }) {
+      return !!auth?.user;
+    }
+  },
+  pages: {
+    signIn: "/login"
+  }
 };
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
